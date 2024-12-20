@@ -13,10 +13,12 @@ public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
 
     @Override
     public List<Edge> getTargetPath(Unit attackUnit, Unit targetUnit, List<Unit> existingUnitList) {
+        //сложность метода O(n*M), что быстрее требуемых O((WIDTH*HEIGHT)log(WIDTH*HEIGHT))
+
         // Создаем матрицу поля
         int[][] field = new int[WIDTH][HEIGHT];
 
-        // Заполняем препятствия
+        // Заполняем препятствия O(k), где k - количество юнитов
         for (Unit unit : existingUnitList) {
             if (unit.isAlive() && unit != attackUnit && unit != targetUnit) {
                 field[unit.getxCoordinate()][unit.getyCoordinate()] = -1;
@@ -33,7 +35,8 @@ public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
         queue.offer(new Edge(startX, startY));
         field[startX][startY] = 1;
 
-        // Распространение волны
+
+        //Сложность BFS O(n*m)
         boolean targetFound = false;
         while (!queue.isEmpty() && !targetFound) {
             Edge current = queue.poll();
@@ -69,6 +72,7 @@ public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
         return x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT;
     }
 
+    //Восстановление быстрее, чем BFS
     private List<Edge> reconstructPath(int[][] field, int startX, int startY, int targetX, int targetY) {
         List<Edge> path = new ArrayList<>();
         int x = targetX;

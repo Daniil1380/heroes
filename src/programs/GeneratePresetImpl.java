@@ -38,7 +38,7 @@ public class GeneratePresetImpl implements GeneratePreset {
 
         System.out.println(armyList);
 
-        //Итоговая сложность O(n * log n) - это лучше, чем O(n * m)
+        //Итоговая сложность O(n * log n) - это лучше, чем O(n * m), предложенное при решении
         return new Army(armyList);
     }
 }

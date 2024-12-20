@@ -14,9 +14,14 @@ public class SimulateBattleImpl implements SimulateBattle {
 
     @Override
     public void simulate(Army playerArmy, Army computerArmy) throws InterruptedException {
+        //проходим по всем юнитам, а потом начинаем заново, и так m раундов
+        //сложность метода O (n * m) где m - число раундов, а n - число юнитов. Однако если мы предположим
+        // (это предположение нужно еще проверить, но похоже на правду), что число раундов - функция от числа юнитов, то получаем
+        // Сложность можно выразить и как O (n^2), что лучше предложенного (O(n^2*log n))
         List<Unit> playerUnits = playerArmy.getUnits();
         List<Unit> computerUnits = computerArmy.getUnits();
 
+        //эти сортировки O(n log n)
         playerUnits
                 .sort(Comparator.comparingInt(Unit::getBaseAttack)
                         .reversed());

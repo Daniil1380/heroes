@@ -10,6 +10,10 @@ public class SuitableForAttackUnitsFinderImpl implements SuitableForAttackUnitsF
 
     @Override
     public List<Unit> getSuitableUnits(List<List<Unit>> unitsByRow, boolean isLeftArmyTarget) {
+        //В данном методе видимо три цикла в цикле, но два из них зависят от количества столбцов, поэтому могут быть оценены как O(1), так как количество столбцов <= 3
+        //Поэтому общая сложность алгоритма = O(n), что соотвествует требованию задачи
+        //Уточнение: в задаче требуется на максимальный балл сделать еще быстрее, но это невозможно, для того,
+        //чтобы проверить юнитов, нам нужно хотя бы по ним по всем один раз пройти, то есть это функция O(n)
         List<Unit> suitableUnits = new ArrayList<>();
 
         for (List<Unit> row : unitsByRow) {
